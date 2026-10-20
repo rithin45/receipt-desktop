@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "dist:win": "npm run build && electron-builder --win nsis",
-    "dist:mac": "npm run build && electron-builder --mac dmg zip"
+    "dist:mac": "npm run build && electron-builder --mac dmg zip --publish never"
   },
   "dependencies": {
     "better-sqlite3": "^13.0.3",
