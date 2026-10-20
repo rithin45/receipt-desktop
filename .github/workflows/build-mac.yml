@@ -1,0 +1,37 @@
+name: Build ReceiptPro for macOS
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-mac:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build macOS installers
+        run: npm run dist:mac
+
+      - name: Upload DMG and ZIP installers
+        uses: actions/upload-artifact@v4
+        with:
+          name: ReceiptPro-macOS
+          path: |
+            release/*.dmg
+            release/*.zip
+          if-no-files-found: error
+          retention-days: 14
